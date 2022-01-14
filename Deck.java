@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Random;
 
 public class Deck {
+    private List<Card> cards = new ArrayList<>();
+
     public List<Card> getCards() {
         return this.cards;
     }
-
-    private List<Card> cards = new ArrayList<>();
 
     //constructor
     public Deck() {
@@ -79,13 +79,13 @@ public class Deck {
             Random r = new Random();
             int j = r.nextInt(i);
 
-            Card tempCard = cards.get(i);
-            cards.set(i, cards.get(j));
-            cards.set(j, tempCard);
+            Card tempCard = getCards().get(i);
+            getCards().set(i, getCards().get(j));
+            getCards().set(j, tempCard);
         }
     }
 
     public Card draw() {
-        return cards.remove(0);
+        return getCards().remove(0);
     }
 }

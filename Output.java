@@ -54,6 +54,13 @@ public class Output {
         else
             System.out.println("You got " + increment + " points for that tiebreak!");
     }
+    //If there are less than 4 cards, then the tiebreak section can't work. The way I've made it work is that all the
+    //previously drawn cards from the active tiebreak are just discarded, and the game continues as normal for the
+    //rest of the cards. If there aren't any more cards at all, then the game finishes like normal.
+    public static void notEnoughCardsForTiebreak() {
+        System.out.println("There aren't enough cards to draw three cards and flip the fourth.");
+        System.out.println("The previously drawn cards will be discarded.");
+    }
     //Once game is over, outputs who won or if there's a tie, outputs each player's score, and then asks if the
     //player wants to play another game.
     public static boolean finishGame(Player player1, Player player2) {

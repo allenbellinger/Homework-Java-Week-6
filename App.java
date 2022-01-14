@@ -1,7 +1,7 @@
 package com.promineotech;
 
 public class App {
-    // I added these parameters at the class level to be used through multiple methods in the App class
+    // I added these fields at the class level to be used through multiple methods in the App class
     public static boolean playNewGame = true;
     public static Deck theDeck;
     public static Player player1;
@@ -52,6 +52,8 @@ public class App {
             //I made a new section for a tiebreaker. I used what I've played in the past with drawing 3 extra, face down
             //cards and then a last one to break the tie. If that is a tie, you do it again until there isn't a tie
             //anymore.
+            //If there aren't enough cards to draw 3 cards, the previous cards are simply discarded and the game
+            //continues if there is at least 1 card in each deck.
             tiebreaker();
         if (handsAreNotEmpty())
             Output.flipAnotherCard();
@@ -65,12 +67,18 @@ public class App {
         while(thereIsStillATie) {
             increment += 4;
             Output.flipFourCardsForTiebreak();
-            flipThreeCards(player1);
-            flipThreeCards(player2);
-            Card card1 = player1.flip();
-            Card card2 = player2.flip();
-            Output.cards(card1, card2);
-            thereIsStillATie = resolvesTiebreakOrReturnsTrue(card1.getValue(), card2.getValue(), increment);
+            if(handsHaveMoreThanThreeCards()) {
+                flipThreeCards(player1);
+                flipThreeCards(player2);
+                Card card1 = player1.flip();
+                Card card2 = player2.flip();
+                Output.cards(card1, card2);
+                thereIsStillATie = resolvesTiebreakOrReturnsTrue(card1.getValue(), card2.getValue(), increment);
+            }
+            else {
+                Output.notEnoughCardsForTiebreak();
+                thereIsStillATie = false;
+            }
         }
     }
     public static boolean resolvesTiebreakOrReturnsTrue(int value1, int value2, int increment) {
@@ -105,6 +113,9 @@ public class App {
         player.flip();
         player.flip();
         player.flip();
+    }
+    public static boolean handsHaveMoreThanThreeCards() {
+        return player1.getHand().size() > 3;
     }
     public static boolean handsAreNotEmpty() {
         return player1.getHand().size() > 0;

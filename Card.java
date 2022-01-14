@@ -8,16 +8,13 @@ public class Card {
         this.value = value;
         this.name = name;
     }
-
     public int getValue() {
         return value;
     }
-
     public String getName() {
         return name;
     }
-
     public String describe() {
-        return "[Value: " + value + ", Name: " + name + "]";
+        return "[Value: " + getValue() + ", Name: " + getName() + "]";
     }
 }

@@ -8,11 +8,14 @@ public class Player {
     private int score;
     private String name;
 
+    public void setScore(int score) {
+        this.score = score;
+    }
     public List<Card> getHand() {
         return this.hand;
     }
     public int getScore() {
-        return score;
+        return this.score;
     }
 
     public String getName() {
@@ -26,22 +29,21 @@ public class Player {
     //I never used this method and didn't really find a good place for it to fit anyway, but I included it here
     //because it's part of the assignment.
     public void describe() {
-        System.out.println("My name is " + name);
-        System.out.println("My score is: " + score);
+        System.out.println("My name is " + getName());
+        System.out.println("My score is: " + getScore());
         for (Card card : hand)
             System.out.println(card.describe());
     }
 
     public Card flip() {
-        return hand.remove(0);
+        return getHand().remove(0);
     }
 
     public void draw(Deck deck) {
-        this.hand.add(deck.draw());
+        getHand().add(deck.draw());
     }
 
     public void incrementScore() {
-        score++;
+        setScore(getScore() + 1);
     }
-
 }
